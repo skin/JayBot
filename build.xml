@@ -1,0 +1,115 @@
+<project name="javaBot" default="compile" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+	
+	<import file="common-config.xml"/>
+	<property file="build.properties" description="file di properties Generale" />
+	<property name="appName" value="${project.name}"/>
+	<property name="jar-all" location="${deploy.outdir}" />
+	
+	<!-- CLEAN -->
+	<target name="clean" depends="askEnv" description="Pulisce la build dir">
+		<echo>Elimino le cartelle di build e di dist</echo>
+		<delete dir="${compile.outdir}"/>
+		<mkdir dir="${compile.outdir}"/>
+		<mkdir dir="${compile.outdir}/${lib.dir}"/>	
+	</target>
+	
+	<!-- INIT -->
+	<target name="init" depends="clean">
+		<echo>Carico le keywords da sostuire per il deploy su ${environment}</echo>
+		<!--contiene le keywords dipendenti dal deploy da sostituire nei file-->
+		<filter filtersfile="${environment.dir}/${environment}.filters"/>
+		<filter filtersfile="${environment.dir}/messages_it.filters"/>
+	</target>
+	
+	<!-- COMPILE -->
+	<target name="compile"  description="Compila le classi" depends="init">	
+		<javac destdir="${compile.outdir}" debug="on"  deprecation="false" optimize="false" failonerror="true">
+			<classpath refId="jayBot.pid"/>
+			<classpath >
+				<fileset dir="${compile.outdir}/${lib.dir}" includes="**/*.jar"/>
+			</classpath>
+			<classpath >
+				<fileset dir="${lib.dir}" includes="**/*.jar"/>
+			</classpath>
+			<src path="${src.dir}"  />
+			<!--src path="${src.plugin.dir}" /-->
+		</javac>
+	</target>
+	
+	<!-- DEPLOY -->
+	<target name="deploy" depends="compile">
+		
+		<!-- elimina e ricrea la cartella del dist corrente -->
+		<delete dir="${deploy.outdir}/${environment}/"/>
+		<mkdir dir="${compile.outdir}/${environment}/"/>
+		
+		<!-- creazione outputdir per i file generati -->
+		<mkdir dir="${deploy.outdir}/${environment}/${outputfile.outdir}/"/>
+		
+		<!-- creo la dir per i log -->
+		<mkdir dir="${deploy.outdir}/${environment}/log/"/>
+		
+		<!-- copia delle librerie dalle dipendenze di maven -->
+		<copy todir="${deploy.outdir}/${environment}/${lib.dir}">
+			<fileset refid="jayBot.dep" />
+			<mapper type="flatten" />
+		</copy>
+		<!-- FINE: copia delle librerie dalle dipendenze di maven -->
+		
+		<!-- copia delle librerie del progetto -->
+		<copy todir="${deploy.outdir}/${environment}/${lib.dir}">
+			<fileset dir="${lib.dir}" includes="**/*.jar"/>
+		</copy>
+		<!-- FINE: copia delle librerie del progetto -->
+			
+		<!-- Creazione dinamica del classpath in base alla dipendenze di maven -->	
+		<fileset id="jars" dir="${deploy.outdir}/${environment}/${lib.dir}">
+			<include name="*.jar" />
+		</fileset>	
+		<path id="cp"> <fileset refid="jars" /> </path>
+		<echo>Elimino:${jar-all}</echo>
+		<pathconvert property="classpath" refid="cp" pathsep=" " dirsep="/">
+			<map from="${jar-all}/${environment}/${lib.dir}" to="lib" />
+		</pathconvert>
+		<echo>il ClassPath è :${classpath}</echo>
+		<!-- FINE : Creazione dinamica del classpath in base alla dipendenze di maven -->		
+		
+		
+		<!-- Copia dei file di properties nelle posizioni opportune -->	
+		<copy todir="${compile.outdir}" overwrite="yes"  filtering="true">
+			<fileset dir="${conf.dir}" includes="**/*.properties"/>
+		</copy>
+		<!-- FINE : Copia dei file di properties nelle posizioni opportune -->	
+		<!-- Copio tutti file di mapping nelle posizioni opportune -->
+		<copy todir="${compile.outdir}" overwrite="yes"  filtering="true">
+			<fileset dir="${conf.dir}/mapping"/>
+		</copy>
+		<!-- FINE : Copio tutti file di mapping nelle posizioni opportune -->
+		
+		<!-- Creazione del jar -->
+		<jar destfile="${deploy.outdir}/${environment}/${project.name}.jar" basedir="${compile.outdir}" excludes="*.scc" compress="false">          
+			<manifest>							  	
+				<attribute name="Main-Class" value="it.reply.technology.demo.LoginMessenger"/>
+				<attribute name="Class-Path" value="${classpath}" />
+			</manifest>	
+		</jar>
+		<!-- FINE: Creazione del jar -->
+		
+		<!-- Copia del file Bat -->
+      		<copy file="jayBot.bat" tofile="${deploy.outdir}/${environment}/jayBot.bat" />
+		<!-- Copia del file sh -->
+		<copy file="jayBot.sh" tofile="${deploy.outdir}/${environment}/jayBot.sh" />
+		<!-- copia i resources del progetto -->
+		<copy todir="${deploy.outdir}/${environment}/${resources.dir}/">
+			<fileset dir="${resources.dir}" />
+		</copy>
+		<!-- copio i file di configurazione in conf -->
+		<copy todir="${deploy.outdir}/${environment}/${conf.dir}" overwrite="yes">
+			<fileset dir="${conf.dir}/" includes="**/*.xml"/>
+		</copy>
+		<!-- FINE : copio i file di configurazione in conf -->
+	
+	</target>
+	<!-- FINE DEPLOY -->
+	
+</project>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<mapping>
+
+	<class name="it.nands.jaybot.plugin.properties.bean.Properties">
+    	<map-to xml="properties"/>
+    	
+    	<field name="moduleList" type="it.nands.jaybot.plugin.properties.bean.Module" collection="arraylist">
+	        <bind-xml name="module" />
+	    </field>
+	        	
+    </class>
+    
+    <class name="it.nands.jaybot.plugin.properties.bean.Module">
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+    	</field>
+    	
+    	
+    	<field name="hashProperties" type="org.exolab.castor.mapping.MapItem" collection="map">
+	        <bind-xml name="property" />
+    	</field>
+    </class>
+    
+    <class name="org.exolab.castor.mapping.MapItem">
+         <field name="key" type="java.lang.String">
+             <bind-xml name="name" node="attribute" />
+         </field>
+         <field name="value" type="java.lang.String">
+         	<bind-xml name="name" node="text" />
+         </field>
+     </class>
+    
+</mapping>

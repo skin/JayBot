@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<mapping>
+	<class name="it.nands.jaybot.plugin.paramController.bean.Commands">
+    	<map-to xml="commands"/>
+    
+    	<field name="commandList" type="it.nands.jaybot.plugin.paramController.bean.Command" collection="arraylist">
+    		<bind-xml name="command"></bind-xml>
+    	</field>
+    
+	</class>
+	
+	<class name="it.nands.jaybot.plugin.paramController.bean.Command">
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+    	</field>
+    	
+    	<field name="commandDescription" type="java.lang.String">
+			<bind-xml name="description" node="attribute"/>
+    	</field>
+    	
+    	<field name="onlyForAdmin" type="java.lang.Boolean" required="false">
+			<bind-xml name="onlyForAdmin" node="attribute"/>
+    	</field>
+    	
+    	<field name="visible" type="java.lang.Boolean" required="false">
+			<bind-xml name="visible" node="attribute"/>
+    	</field>
+    
+    	<field name="commandItemList" type="it.nands.jaybot.plugin.paramController.bean.CommandItem" collection="arraylist" container="true">
+    		<bind-xml node="element"></bind-xml>
+    	</field>
+    
+	</class>
+	
+	<class name="it.nands.jaybot.plugin.paramController.bean.CommandItem" >
+		<field name="template" type="java.lang.String">
+			<bind-xml name="template"/>
+    	</field>
+    	
+    	<field name="description" type="java.lang.String">
+			<bind-xml name="description"/>
+    	</field>
+	</class>
+  
+</mapping>

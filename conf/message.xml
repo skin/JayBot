@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<messages>
+	<message name="help">%1 ti mette a disposizione una serie di funzionalita': %2</message>
+	<message name="quit">%1 is shutting down</message>
+	<message name="quit_busy">Impossibile eseguire lo shutdown. %1</message>
+	<message name="ciao">Ciao a te %1</message>
+	
+	<message name="unknownCommand">Ma come parli? che vuoi? Per la lista dei comandi digita : %1</message>
+	<message name="alreadyAskedDeploy">%1 ha già richiesto un deploy in %2</message>
+	<message name="deployExecuting">Eseguo deploy di %1 in %2</message>
+	<message name="putRequestAccepted">Hai richiesto l'invio di un file nella cartella %1 del server %2 mediante protocollo %3. Attendo l'invio del tuo file.</message>
+	<!-- ERRORI -->
+	<message name="pluginInitializeException">Problemi in inizializzazione plugin: %1</message>
+	
+</messages>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<mapping>
+	<class name="it.nands.jaybot.plugin.configurator.bean.Plugins">
+    	<map-to xml="plugins"/>
+    
+    	<field name="pluginList" type="it.nands.jaybot.plugin.configurator.bean.Plugin" collection="arraylist">
+    		<bind-xml name="plugin"></bind-xml>
+    	</field>
+    
+	</class>
+	
+	<class name="it.nands.jaybot.plugin.configurator.bean.Plugin">
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+    	</field>
+    
+		<field name="dependencies" type="java.lang.String">
+			<bind-xml name="dependencies" node="attribute"/>
+    	</field>
+ 		
+ 		<field name="classList" type="java.lang.String" collection="arraylist">
+			<bind-xml name="class"/>
+ 		</field>
+ 		
+	</class>
+  
+</mapping>

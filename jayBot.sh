@@ -1,0 +1,1 @@
+java -jar -Xmx512M -jar jay.jar

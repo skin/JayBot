@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<mapping>
+
+	<class name="it.nands.jaybot.plugin.resource.bean.Resources">
+    	<map-to xml="resources"/>
+    	
+    	<field name="resourceList" type="it.nands.jaybot.plugin.resource.bean.Resource" collection="arraylist">
+    		<bind-xml name="resource"></bind-xml>
+    	</field>
+    	
+	</class>
+
+	<class name="it.nands.jaybot.plugin.resource.bean.Resource">
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+    	</field>
+	
+		<field name="type" type="java.lang.String">
+			<bind-xml name="type" node="attribute"/>
+    	</field>
+    
+		<field name="server" type="java.lang.String">
+			<bind-xml name="server" node="attribute"/>
+    	</field>
+    	
+    	<field name="pathName" type="java.lang.String" required="false">
+			<bind-xml name="pathName" node="attribute"/>
+    	</field>
+    	
+    	<field name="path" type="java.lang.String" required="false">
+			<bind-xml name="path" node="attribute"/>
+    	</field>
+    	
+    	<field name="file" type="java.lang.String">
+			<bind-xml name="file" node="attribute"/>
+    	</field>
+    	
+	</class>
+  
+</mapping>

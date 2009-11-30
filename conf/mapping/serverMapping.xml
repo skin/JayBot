@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<mapping>
+
+	<class name="it.nands.jaybot.plugin.server.bean.Servers">
+    	<map-to xml="servers"/>
+    	
+    	<field name="ftps" type="it.nands.jaybot.plugin.server.bean.Ftps">
+    		<bind-xml name="ftps"></bind-xml>
+    	</field>
+    	<field name="sshs" type="it.nands.jaybot.plugin.server.bean.Sshs">
+    		<bind-xml name="sshs"></bind-xml>
+    	</field>
+    
+	</class>
+
+	<class name="it.nands.jaybot.plugin.server.bean.Ftps">
+    	<map-to xml="ftps"/>
+    	
+    	<field name="ftpList" type="it.nands.jaybot.plugin.server.bean.Ftp" collection="arraylist">
+    		<bind-xml name="ftp"></bind-xml>
+    	</field>
+    
+	</class>
+	
+	<class name="it.nands.jaybot.plugin.server.bean.Ftp">
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+    	</field>
+	
+		<field name="host" type="java.lang.String">
+			<bind-xml name="host"/>
+    	</field>
+    
+		<field name="username" type="java.lang.String">
+			<bind-xml name="username"/>
+    	</field>
+    	
+    	<field name="password" type="java.lang.String">
+			<bind-xml name="password"/>
+    	</field>
+    	
+    	<field name="hashPath" type="org.exolab.castor.mapping.MapItem" collection="map">
+	        <bind-xml name="path" />
+    	</field>
+	    
+	</class>
+	
+	
+	
+	<class name="org.exolab.castor.mapping.MapItem">
+         <field name="key" type="java.lang.String">
+             <bind-xml name="name" node="attribute" />
+         </field>
+         <field name="value" type="java.lang.String">
+         	<bind-xml name="name" node="text" />
+         </field>
+     </class>
+
+	<class name="it.nands.jaybot.plugin.server.bean.Sshs">
+    	<map-to xml="sshs"/>
+    	
+    	<field name="sshList" type="it.nands.jaybot.plugin.server.bean.Ssh" collection="arraylist">
+    		<bind-xml name="ssh"></bind-xml>
+    	</field>
+    
+	</class>
+	
+	<class name="it.nands.jaybot.plugin.server.bean.Ssh">
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+    	</field>
+    	
+		<field name="host" type="java.lang.String">
+			<bind-xml name="host"/>
+    	</field>
+    
+		<field name="username" type="java.lang.String">
+			<bind-xml name="username"/>
+    	</field>
+    	
+    	<field name="password" type="java.lang.String">
+			<bind-xml name="password"/>
+    	</field>
+    	
+    	<field name="hashPath" type="org.exolab.castor.mapping.MapItem" collection="map">
+	        <bind-xml name="path" />
+    	</field>
+	</class>
+  
+</mapping>

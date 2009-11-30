@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<commands>
+
+	<command name="help" description="Richiede al bot un elenco di tutti i comandi disponibili">
+		<template>help</template>
+		<description>Elenco dei comandi</description>
+	</command>
+	
+	<command name="deploy" description="Richiede al bot un deploy">
+		<template>deploy %earName %environment</template>
+		<description>Esegue un deploy</description>
+	</command>
+	
+	<command name="log" description="Richiede al bot l'invio di un file di log">
+		<template>log %logFilename %environment</template>
+		<description>Chiede l'invio di un file di log</description>
+	</command>
+	
+	<command name="ftp put" description="Comunica al bot su quale ftp e in quale posizione dovra' spostare un file che gli stiamo per inviare">
+		
+		<template>ftp put %serverName</template>
+		<description>Prepara l'invio di un file su un Server nella cartella di default</description>
+		
+		<template>ftp put dir %serverName %serverDir</template>
+		<description>Prepara l'invio di un file su un Server nella cartella specificata</description>
+			
+		<template>ftp put ln %serverName %lnDir</template>
+		<description>Prepara l'invio di un file su un Server in una cartella mediante alias</description>
+	</command>
+	
+	<command name="quit" onlyForAdmin="true" description="Richiede al bot la sua uscita">
+		<template>quit</template>
+		<description>Disconnette il bot</description>
+	</command>
+	
+	<command name="ciao" visible="false" description="Saluto del bot">
+		<template>ciao</template>
+		<description>il bot saluta</description>
+	</command>
+	
+</commands>

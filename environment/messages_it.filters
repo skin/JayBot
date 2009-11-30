@@ -1,0 +1,3 @@
+help=%NickName ti mette a disposizione una serie di funzionalità:\nDEPLOY : eseguire un deploy
+alreadyAskedDeploy=%NickOwnerStatus ha già richiesto un deploy in %environment
+deployExecuting=Eseguo deploy di %earName in %environment

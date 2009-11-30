@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<properties>
+	<module name="default">
+		<property name="botname">JayBot</property>
+		<property name="username"></property>
+		<property name="password"></property>
+		<property name="personal_message"></property>
+		<property name="quit_personal_message">s</property>
+		<property name="administrator"></property>
+	</module>
+	<module name="special">
+		<property name="botname">JayBot</property>
+	</module>
+</properties>
