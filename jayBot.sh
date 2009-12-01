@@ -1,1 +1,1 @@
-java -jar -Xmx512M -jar jay.jar
+java -jar -Xmx512M -jar jayBot.jar

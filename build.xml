@@ -1,4 +1,4 @@
-<project name="javaBot" default="compile" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+<project name="jayBot" default="compile" basedir="." xmlns:artifact="urn:maven-artifact-ant">
 	
 	<property file="build.properties" description="file di properties Generale" />
 	<property name="appName" value="${project.name}"/>
@@ -31,7 +31,6 @@
 	<!-- COMPILE -->
 	<target name="compile"  description="Compila le classi" depends="init">	
 		<javac destdir="${compile.outdir}" debug="on"  deprecation="false" optimize="false" failonerror="true">
-			<classpath refId="jayBot.pid"/>
 			<classpath >
 				<fileset dir="${compile.outdir}/${lib.dir}" includes="**/*.jar"/>
 			</classpath>
@@ -89,7 +88,7 @@
 		<!-- Creazione del jar -->
 		<jar destfile="${deploy.outdir}/${environment}/${project.name}.jar" basedir="${compile.outdir}" excludes="*.scc" compress="false">          
 			<manifest>							  	
-				<attribute name="Main-Class" value="it.reply.technology.demo.LoginMessenger"/>
+				<attribute name="Main-Class" value="it.nands.jaybot.demo.LoginMessenger"/>
 				<attribute name="Class-Path" value="${classpath}" />
 			</manifest>	
 		</jar>
@@ -99,10 +98,10 @@
       		<copy file="jayBot.bat" tofile="${deploy.outdir}/${environment}/jayBot.bat" />
 		<!-- Copia del file sh -->
 		<copy file="jayBot.sh" tofile="${deploy.outdir}/${environment}/jayBot.sh" />
-		<!-- copia i resources del progetto -->
+		<!-- copia i resources del progetto 
 		<copy todir="${deploy.outdir}/${environment}/${resources.dir}/">
 			<fileset dir="${resources.dir}" />
-		</copy>
+		</copy>-->
 		<!-- copio i file di configurazione in conf -->
 		<copy todir="${deploy.outdir}/${environment}/${conf.dir}" overwrite="yes">
 			<fileset dir="${conf.dir}/" includes="**/*.xml"/>

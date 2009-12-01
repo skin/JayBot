@@ -3,16 +3,16 @@
                          "http://castor.org/mapping.dtd">
 
 <mapping>
-	<class name="it.nands.jaybot.plugin.paramController.bean.Commands">
+	<class name="it.nands.jaybot.plugin.paramcontroller.bean.Commands">
     	<map-to xml="commands"/>
     
-    	<field name="commandList" type="it.nands.jaybot.plugin.paramController.bean.Command" collection="arraylist">
+    	<field name="commandList" type="it.nands.jaybot.plugin.paramcontroller.bean.Command" collection="arraylist">
     		<bind-xml name="command"></bind-xml>
     	</field>
     
 	</class>
 	
-	<class name="it.nands.jaybot.plugin.paramController.bean.Command">
+	<class name="it.nands.jaybot.plugin.paramcontroller.bean.Command">
 		<field name="name" type="java.lang.String">
 			<bind-xml name="name" node="attribute"/>
     	</field>
@@ -29,13 +29,13 @@
 			<bind-xml name="visible" node="attribute"/>
     	</field>
     
-    	<field name="commandItemList" type="it.nands.jaybot.plugin.paramController.bean.CommandItem" collection="arraylist" container="true">
+    	<field name="commandItemList" type="it.nands.jaybot.plugin.paramcontroller.bean.CommandItem" collection="arraylist" container="true">
     		<bind-xml node="element"></bind-xml>
     	</field>
     
 	</class>
 	
-	<class name="it.nands.jaybot.plugin.paramController.bean.CommandItem" >
+	<class name="it.nands.jaybot.plugin.paramcontroller.bean.CommandItem" >
 		<field name="template" type="java.lang.String">
 			<bind-xml name="template"/>
     	</field>
