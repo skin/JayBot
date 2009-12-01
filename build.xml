@@ -1,10 +1,17 @@
 <project name="javaBot" default="compile" basedir="." xmlns:artifact="urn:maven-artifact-ant">
 	
-	<import file="common-config.xml"/>
 	<property file="build.properties" description="file di properties Generale" />
 	<property name="appName" value="${project.name}"/>
 	<property name="jar-all" location="${deploy.outdir}" />
 	
+	<target name="askEnv" unless="environment">
+			<input
+				    message="Seleziona environment?"
+				    validargs="SVIL,CERT,PROD"
+				    addproperty="environment"
+				    defaultvalue="SVIL"/>
+	</target>
+				    	
 	<!-- CLEAN -->
 	<target name="clean" depends="askEnv" description="Pulisce la build dir">
 		<echo>Elimino le cartelle di build e di dist</echo>
@@ -48,14 +55,7 @@
 		
 		<!-- creo la dir per i log -->
 		<mkdir dir="${deploy.outdir}/${environment}/log/"/>
-		
-		<!-- copia delle librerie dalle dipendenze di maven -->
-		<copy todir="${deploy.outdir}/${environment}/${lib.dir}">
-			<fileset refid="jayBot.dep" />
-			<mapper type="flatten" />
-		</copy>
-		<!-- FINE: copia delle librerie dalle dipendenze di maven -->
-		
+			
 		<!-- copia delle librerie del progetto -->
 		<copy todir="${deploy.outdir}/${environment}/${lib.dir}">
 			<fileset dir="${lib.dir}" includes="**/*.jar"/>

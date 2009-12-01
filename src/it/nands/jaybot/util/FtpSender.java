@@ -4,11 +4,13 @@ package it.nands.jaybot.util;
 import it.nands.jaybot.plugin.server.bean.Ftp;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-import com.enterprisedt.net.ftp.FTPClient;
-import com.enterprisedt.net.ftp.FTPException;
-import com.enterprisedt.net.ftp.FTPTransferType;
+import sun.net.ftp.FtpClient;
 
 /***
  * Classe per la gestione dell'invio di file tramite ftp
@@ -31,27 +33,45 @@ public class FtpSender {
 	 * @throws IOException		: eccezione di I/O
 	 * @throws FTPException		: eccezione FTP
 	 */
-	public static void sendFile(String host, String user, String pwd,String filePath, String fileNameLocal,  String destPath, String fileNameRemote) throws IOException, FTPException{
+	public static void sendFile(String host, String user, String pwd,String filePath, String fileNameLocal,  String destPath, String fileNameRemote) throws IOException {
 		
 		try{
 			//crea un client FTP per il trasferimento del file
-			FTPClient ftp = new FTPClient(host);
-			ftp.debugResponses(false);
+			FtpClient ftp = new FtpClient();
+			ftp.openServer(host);
 			ftp.login(user, pwd);
-			ftp.setType(FTPTransferType.BINARY);
+			ftp.binary();
 			
 			//sposta nella directory di destinazione il file
-			ftp.chdir(destPath);
-			ftp.put(filePath + File.separator + fileNameLocal, fileNameRemote);
-			
+			ftp.cd(destPath);
+			putFile(filePath, fileNameLocal, fileNameRemote, ftp);
 			//chiude la connessione
-			ftp.quit();	
-		}catch(FTPException e){
-			throw new FTPException("Transfer non riuscito.");			
+			ftp.closeServer();	
 		}catch(IOException e){
 			throw new IOException("IO Excepion");
 		}
 			
+	}
+
+	/**
+	 * @param filePath
+	 * @param fileNameLocal
+	 * @param fileNameRemote
+	 * @param ftp
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	private static void putFile(String filePath, String fileNameLocal, String fileNameRemote, FtpClient ftp) throws IOException, FileNotFoundException {
+		OutputStream fileOut = ftp.put(fileNameRemote);
+		InputStream fileIn = new FileInputStream(filePath + File.separator + fileNameLocal);
+		byte c[] = new byte[4096];
+		int read = 0;
+		while ((read = fileIn.read(c)) != -1 )
+		{
+		fileOut.write(c, 0, read);
+		}
+		fileIn.close();
+		fileOut.close();
 	}
 	
 	/***
@@ -64,7 +84,7 @@ public class FtpSender {
 	 * @throws IOException		: eccezione di I/O
 	 * @throws FTPException		: eccezione FTP
 	 */
-	public static void sendFile(Ftp serverFtp,String filePath, String fileNameLocal,  String destPath, String fileNameRemote) throws IOException, FTPException{
+	public static void sendFile(Ftp serverFtp,String filePath, String fileNameLocal,  String destPath, String fileNameRemote) throws IOException{
 		sendFile(serverFtp.getHost(),serverFtp.getUsername(),serverFtp.getPassword(),filePath,fileNameLocal,destPath,fileNameRemote);
 	}
 
