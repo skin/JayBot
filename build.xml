@@ -1,4 +1,4 @@
-<project name="jayBot" default="compile" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+<project name="jayBot" default="dist" basedir="." xmlns:artifact="urn:maven-artifact-ant">
 	
 	<property file="build.properties" description="file di properties Generale" />
 	<property name="appName" value="${project.name}"/>
@@ -42,8 +42,8 @@
 		</javac>
 	</target>
 	
-	<!-- DEPLOY -->
-	<target name="deploy" depends="compile">
+	<!-- DIST -->
+	<target name="dist" depends="compile">
 		
 		<!-- elimina e ricrea la cartella del dist corrente -->
 		<delete dir="${deploy.outdir}/${environment}/"/>
@@ -108,6 +108,7 @@
 		</copy>
 		<!-- FINE : copio i file di configurazione in conf -->
 	
+		<delete dir="${compile.outdir}"/>
 	</target>
 	<!-- FINE DEPLOY -->
 	
