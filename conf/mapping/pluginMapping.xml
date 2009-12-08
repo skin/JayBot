@@ -20,6 +20,10 @@
 		<field name="dependencies" type="java.lang.String">
 			<bind-xml name="dependencies" node="attribute"/>
     	</field>
+    	
+    	<field name="blocking" type="java.lang.Boolean">
+			<bind-xml name="blocking" node="attribute"/>
+    	</field>
  		
  		<field name="classList" type="java.lang.String" collection="arraylist">
 			<bind-xml name="class"/>

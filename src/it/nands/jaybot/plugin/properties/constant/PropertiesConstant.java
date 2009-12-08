@@ -5,10 +5,11 @@ package it.nands.jaybot.plugin.properties.constant;
  * @author Alessandro Franzi
  *
  */
-public class XmlConstant {
+public class PropertiesConstant {
 	
 	// moduli
-	public static final String DEFAULT_MODULE ="default";
+	public static final String MODULE_DEFAULT ="default";
+	public static final String MODULE_CONFIGURATION ="configuration";
 	
 	// properties
 	public static final String PROP_BOTNAME ="botname";
@@ -17,4 +18,5 @@ public class XmlConstant {
 	public static final String PROP_PERSONAL_MESSAGE = "personal_message";
 	public static final String PROP_QUIT_PERSONAL_MESSAGE = "quit_personal_message";
 	public static final String PROP_ADMINISTRATOR_LIST = "administrator";
+	public static final String PROP_LOADERMETHOD = "loaderMethod";
 }

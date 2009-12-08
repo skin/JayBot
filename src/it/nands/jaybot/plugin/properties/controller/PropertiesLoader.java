@@ -16,7 +16,7 @@ import it.nands.jaybot.plugin.configurator.controller.PluginLoader;
 import it.nands.jaybot.plugin.configurator.exception.PluginInitializeException;
 import it.nands.jaybot.plugin.impl.SingletonPluginLoader;
 import it.nands.jaybot.plugin.properties.bean.Properties;
-import it.nands.jaybot.plugin.properties.constant.XmlConstant;
+import it.nands.jaybot.plugin.properties.constant.PropertiesConstant;
 
 /***
  * Classe per la gestione del plugin delle properties
@@ -78,6 +78,6 @@ public class PropertiesLoader extends SingletonPluginLoader{
 		return PropertiesUtils.getProperty(properties.getModuleList(),module, key); 
 	}
 	protected String getValue(String key){
-		return getValue(XmlConstant.DEFAULT_MODULE,key);
+		return getValue(PropertiesConstant.MODULE_DEFAULT,key);
 	}
 }

@@ -73,11 +73,17 @@ public class PluginLoader extends SingletonPluginLoader{
 	        PluginChecker.checkProblemInClassDefinition(plugins);
 	        // controllo le dipendenze tra plugins e la replicazione
 	        PluginChecker.checkDependencies(plugins);
-	        // istanzia tutti i plugin che estendono il singleTon
-	        PluginUtils.forceIstanceOfAllPlugins(plugins);
-	        // divido i plugin per genere
-	        onMessageReceivedPlugins = PluginUtils.getOnMessageReceivedPlugins(plugins);
 	        
+	        /***
+	         * Eseguo la chiamata del metodo getInstance delle classi registrate
+	         * nel file plugin.xml che implementano l'interfaccia SingletonPluginLoader.
+	         */
+	        PluginUtils.forceIstanceOfAllPlugins(plugins);
+	        
+	        /***
+	         * Registro i plugin che implementano l'interfaccia
+	         */
+	        onMessageReceivedPlugins = PluginUtils.getOnMessageReceivedPlugins(plugins);
 	        logger.debug("Il numero di plugin da eseguire OnMessageReceived e' :"+onMessageReceivedPlugins.getPluginList().size());
 	        
 		}catch(MarshalException ex){
@@ -97,6 +103,7 @@ public class PluginLoader extends SingletonPluginLoader{
 			throw new PluginInitializeException(MessagePlugin.getPluginError(ex));
 		} catch (PluginChekerException ex){
 			logger.error("Eccezione :",ex);
+			System.out.println(ex.getMessage());
 			throw new PluginInitializeException(MessagePlugin.getPluginError(ex));
 		}
 

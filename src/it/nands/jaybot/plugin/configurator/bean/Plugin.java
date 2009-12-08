@@ -11,8 +11,11 @@ public class Plugin {
 	
 	private String name;
 	private String dependencies;
+	private Boolean blocking = new Boolean(false);
 	private List<String> classList;
 	
+	
+
 	
 	/**
 	 * Recupera il valore di : class list.
@@ -66,6 +69,14 @@ public class Plugin {
 	 */
 	public void setDependencies(String dependencies) {
 		this.dependencies = dependencies;
+	}
+	
+	public Boolean getBlocking() {
+		return blocking;
+	}
+
+	public void setBlocking(Boolean blocking) {
+		this.blocking = blocking;
 	}
 
 }

@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import it.nands.jaybot.bean.User;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
 import it.nands.jaybot.plugin.configurator.exception.PluginInitializeException;
-import it.nands.jaybot.plugin.properties.constant.XmlConstant;
+import it.nands.jaybot.plugin.properties.constant.PropertiesConstant;
 
 
 /***

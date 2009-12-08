@@ -104,11 +104,11 @@
 		</copy>-->
 		<!-- copio i file di configurazione in conf -->
 		<copy todir="${deploy.outdir}/${environment}/${conf.dir}" overwrite="yes">
-			<fileset dir="${conf.dir}/" includes="**/*.xml"/>
+			<fileset dir="${conf.dir}/" includes="*.xml"/>
 		</copy>
 		<!-- FINE : copio i file di configurazione in conf -->
 	
-		<delete dir="${compile.outdir}"/>
+		<!--delete dir="${compile.outdir}"/-->
 	</target>
 	<!-- FINE DEPLOY -->
 	

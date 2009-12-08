@@ -2,10 +2,13 @@ package it.nands.jaybot.plugin.configurator.util;
 
 import it.nands.jaybot.plugin.configurator.bean.Plugin;
 import it.nands.jaybot.plugin.configurator.bean.Plugins;
+import it.nands.jaybot.plugin.configurator.exception.PluginException;
 import it.nands.jaybot.plugin.configurator.exception.PluginInitializeException;
 import it.nands.jaybot.plugin.configurator.exception.ReplicatePluginException;
 import it.nands.jaybot.plugin.impl.MessageHandlerPluginInterface;
 import it.nands.jaybot.plugin.impl.SingletonPluginLoader;
+import it.nands.jaybot.plugin.properties.constant.PropertiesConstant;
+import it.nands.jaybot.plugin.properties.controller.PropertiesPlugin;
 import it.nands.jaybot.util.ReflectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -64,47 +67,76 @@ public class PluginUtils {
 		return elencoPlugin;
 	}
 	
+	/***
+	 * This method get all registered plugins and for each of them it cheks if implements
+	 * SingletonPluginLoader class.
+	 * In this case it will call method getInstance.
+	 * If the current plugin returns an error and is a blocking plugin, then an PluginInitializeException
+	 * will be thrown. Else the error is logged but the execution continue.
+	 * 
+	 * @throws PluginInitializeException	: exception
+	 */
 	public static void forceIstanceOfAllPlugins(Plugins plugins) throws PluginInitializeException{
 		Plugin currPlugin = null;
 		String classCurr ="";
 		try{
+			String methodName = PropertiesPlugin.getValue(PropertiesConstant.MODULE_CONFIGURATION, PropertiesConstant.PROP_LOADERMETHOD);
+			logger.info("Method to call : "+methodName);
 			if (PluginChecker.checkIfThereIsSomePlugin(plugins)){
 				List<Plugin> listaPlugin = plugins.getPluginList();
 				for (int i = 0 ; i < listaPlugin.size(); i++){
 					currPlugin = listaPlugin.get(i);
-					
-					
 					for (int j = 0 ; j < currPlugin.getClassList().size(); j++){
 						classCurr = currPlugin.getClassList().get(j);
 						// controllo se la classe e' definita, altrimenti pu˜ anche non essere un problema
 						if (!StringUtils.isEmpty(classCurr)){
-							// controllo dell'esistenza della classe mediante Reflection
-							Class classToIstanciate = Class.forName(classCurr);
-							Class superclass = classToIstanciate.getSuperclass();
-							if (ReflectionUtils.confrontateClasses(SingletonPluginLoader.class, superclass)){								
-								// se e' istanza dei singletonLoader chiamo il metodo getIstance()
-								Class partypes[] = new Class[0];
-								Method meth = classToIstanciate.getMethod("getInstance",partypes);
-								Object arglist[] = new Object[0];
-						        meth.invoke(classToIstanciate, arglist);
+							try{
+								// controllo dell'esistenza della classe mediante Reflection
+								Class classToIstanciate = Class.forName(classCurr);
+								Class superclass = classToIstanciate.getSuperclass();
+								if (ReflectionUtils.confrontateClasses(SingletonPluginLoader.class, superclass)){								
+									// se e' istanza dei singletonLoader chiamo il metodo getIstance()
+									Class partypes[] = new Class[0];
+									Method meth = classToIstanciate.getMethod(methodName,partypes);
+									Object arglist[] = new Object[0];
+							        meth.invoke(classToIstanciate, arglist);
+								}
+							}catch(ClassNotFoundException ex){
+								String eccezione = "La classe di riferimento per il plugin "+currPlugin.getName()+" non esiste. Blocking : "+currPlugin.getBlocking().booleanValue();
+								logger.error(eccezione,ex);
+								if (currPlugin.getBlocking().booleanValue()){
+									throw new PluginInitializeException (eccezione);
+								}
+							}catch(NoSuchMethodException ex){
+								String eccezione = "La classe "+currPlugin.getName()+" presenta un metodo "+methodName+". Blocking : "+currPlugin.getBlocking().booleanValue();
+								logger.error(eccezione,ex);
+								if (currPlugin.getBlocking().booleanValue()){
+									throw new PluginInitializeException (eccezione);
+								}
+							}catch(IllegalAccessException ex){
+								String eccezione = "La classe "+currPlugin.getName()+" presenta presenta problemi di accesso. Blocking : "+currPlugin.getBlocking().booleanValue();
+								logger.error(eccezione,ex);
+								if (currPlugin.getBlocking().booleanValue()){
+									throw new PluginInitializeException (eccezione);
+								}
+							}catch(InvocationTargetException ex){
+								String eccezione = "La classe "+currPlugin.getName()+" presenta un probema nell'initialize del plugin "+currPlugin.getName();
+								logger.error(eccezione,ex);
+								if (currPlugin.getBlocking().booleanValue()){
+									throw new PluginInitializeException (eccezione);
+								}
 							}
 						}
 					}
 					
 				}
 			}
-		}catch(ClassNotFoundException ex){
+		}catch(PluginException ex){
 			logger.error("Eccezione : ",ex);
-			throw new PluginInitializeException ("La classe di riferimento per il plugin "+currPlugin.getName()+" non esiste");
-		}catch(NoSuchMethodException ex){
+			throw new PluginInitializeException (ex.getMessage());
+		}catch(Exception ex){
 			logger.error("Eccezione : ",ex);
-			throw new PluginInitializeException ("La classe "+classCurr+" non presenta un metodo getInstance()");
-		}catch(IllegalAccessException ex){
-			logger.error("Eccezione : ",ex);
-			throw new PluginInitializeException ("La classe "+classCurr+" presenta problemi di accesso");
-		}catch(InvocationTargetException ex){
-			logger.error("Eccezione : ",ex);
-			throw new PluginInitializeException ("La classe "+classCurr+" presenta un probema nell'initialize del plugin "+currPlugin.getName());
+			throw new PluginInitializeException (ex.getMessage());
 		}
 	}
 	

@@ -1,12 +1,55 @@
 <?xml version="1.0" ?>
+<!--
+AUTHOR
+	a.franzi
+	
+DESCRIPTION	
+	JayBot's plugin configuration file.
+	
+SPECIFICATIONS
+	<plugins> 	- root node
+	<plugin> 	- single plugin configuration node
+		attributes :
+					name (required)
+						name of plugin
+					
+					dependencies (not required)
+						csv list of plugin dependencies.
+						When plugin loader checks problem in dependencies
+						it stops the bot execution.
+					
+					blocking (not required, default value "false")
+						If "true" and some problem occurs in initilizing bot stops his
+						execution.
+						If "false" and some problem occurs it is logged but the initializing
+						continue.
+		
+		<class>	- 	class full name
+					the class must implements this interfaces : 
+						- SingletonPluginLoader : 	
+							plugin manager call method getInstance on
+							startup
+						- MessageHandlerPluginInterface : 
+							message manager call method chatMessageReceived on
+							message received
+					   
+-->
 <plugins>
-	<plugin name="paramController" dependencies="tokenizerPlugin">
+	<plugin name="propertiesPlugin" 
+			blocking="true">
+		<class>it.nands.jaybot.plugin.properties.controller.PropertiesLoader</class>
+	</plugin>
+	
+	<plugin name="quitPlugin" dependencies="paramController,propertiesController">
+		<class>it.nands.jaybot.plugin.quit.QuitPlugin</class>
+	</plugin>
+	
+	
+	<!-- plugin name="paramController" dependencies="tokenizerPlugin">
 		<class>it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerLoader</class>
 		<class>it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin</class>
 	</plugin>
-	<plugin name="propertiesController" dependencies="">
-		<class>it.nands.jaybot.plugin.properties.controller.PropertiesLoader</class>
-	</plugin>
+	
 	<plugin name="tokenizerPlugin" dependencies="">
 		<class>it.nands.jaybot.plugin.tokenizer.controller.TokenizerLoader</class>
 	</plugin>
@@ -27,9 +70,6 @@
 	</plugin>
 	<plugin name="helpPlugin" dependencies="paramController,propertiesController">
 		<class>it.nands.jaybot.plugin.help.HelpPlugin</class>
-	</plugin>
-	<plugin name="quitPlugin" dependencies="paramController,propertiesController">
-		<class>it.nands.jaybot.plugin.quit.QuitPlugin</class>
-	</plugin>
+	</plugin-->
 	
 </plugins>

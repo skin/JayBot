@@ -92,7 +92,7 @@ public class PluginChecker {
 								// per ciascuna dipendenza controllo che sia in lista
 								if (!listaPluginStr.contains(listaDipendenze.get(j))){
 									// nel caso in cui una dipendenza non sia contenuta devo segnalarla
-									problemi.append("Il plugin "+currPlugin.getName()+" necessitˆ del plugin : "+listaDipendenze.get(j)+"\n");
+									problemi.append("Chek dependencies for plugin "+currPlugin.getName()+" failed! Required : "+listaDipendenze.get(j)+"\n");
 								}
 							}
 						}

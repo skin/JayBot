@@ -14,7 +14,7 @@ import it.nands.jaybot.plugin.configurator.exception.PluginException;
 import it.nands.jaybot.plugin.impl.MessageHandlerPluginInterface;
 import it.nands.jaybot.plugin.message.controller.MessagePlugin;
 import it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin;
-import it.nands.jaybot.plugin.properties.constant.XmlConstant;
+import it.nands.jaybot.plugin.properties.constant.PropertiesConstant;
 import it.nands.jaybot.plugin.properties.controller.PropertiesPlugin;
 import it.nands.jaybot.util.MessageUtils;
 import it.nands.jaybot.util.UserUtils;
@@ -46,8 +46,8 @@ public class HelpPlugin implements MessageHandlerPluginInterface {
 							MessagesConstant.MESSAGE_HELP, 
 							PropertiesPlugin.getValue
 							(
-									XmlConstant.DEFAULT_MODULE,
-									XmlConstant.PROP_BOTNAME
+									PropertiesConstant.MODULE_DEFAULT,
+									PropertiesConstant.PROP_BOTNAME
 							),
 							ParamControllerPlugin.getPrintableCommandList()
 				);

@@ -7,7 +7,7 @@ import it.nands.jaybot.constant.StatusConstant;
 import it.nands.jaybot.exception.JavaBotInitializingExeption;
 import it.nands.jaybot.listener.JavaBotMessengerListener;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
-import it.nands.jaybot.plugin.properties.constant.XmlConstant;
+import it.nands.jaybot.plugin.properties.constant.PropertiesConstant;
 import it.nands.jaybot.plugin.properties.controller.PropertiesPlugin;
 import it.nands.jaybot.util.ChatMessageUtils;
 
@@ -56,8 +56,8 @@ public class JavaBotMessenger{
 	private JavaBotMessenger() throws JavaBotInitializingExeption{
 		
 		try {
-			email = PropertiesPlugin.getValue(XmlConstant.PROP_USERNAME);
-			password = PropertiesPlugin.getValue(XmlConstant.PROP_PASSWORD);
+			email = PropertiesPlugin.getValue(PropertiesConstant.PROP_USERNAME);
+			password = PropertiesPlugin.getValue(PropertiesConstant.PROP_PASSWORD);
 		} catch (PluginException e) {
 			throw new JavaBotInitializingExeption(e.getMessage());
 		}
@@ -156,34 +156,31 @@ public class JavaBotMessenger{
 					MsnInstantMessage message, MsnContact contact) {
 				
 				//TODO:TOGLIERE
-				try {
-					logger.info("SENDING FILE");
-					 if(contact != null && contact.getStatus().equals(MsnUserStatus.OFFLINE)){
-						 logger.info("eheeeeeeeeee contact is offline ");
-						 System.out.println("eheeeeeeeeee contact is offline");
-					 }else{
-						 logger.info("Status : "+contact.getStatus());
-						 System.out.println("Status : "+contact.getStatus());
-					 }
-					 
-					MsnFileTransfer myFileTransfer = JavaBotMessenger.getInstance().messenger.getFileTransferManager().sendFile(contact.getEmail(), new File("c:/prova.html"));
-					//myFileTransfer.start();
-					
-					
-				} catch (JavaBotInitializingExeption e1) {
-					logger.error("Eccezione : ",e1);
-				}
+//				try {
+//					logger.info("SENDING FILE");
+//					 if(contact != null && contact.getStatus().equals(MsnUserStatus.OFFLINE)){
+//						 logger.info("eheeeeeeeeee contact is offline ");
+//						 System.out.println("eheeeeeeeeee contact is offline");
+//					 }else{
+//						 logger.info("Status : "+contact.getStatus());
+//						 System.out.println("Status : "+contact.getStatus());
+//					 }
+//					 
+//					MsnFileTransfer myFileTransfer = JavaBotMessenger.getInstance().messenger.getFileTransferManager().sendFile(contact.getEmail(), new File("c:/prova.html"));
+//					
+//					
+//				} catch (JavaBotInitializingExeption e1) {
+//					logger.error("Eccezione : ",e1);
+//				}
 				//TODO:TOGLIERE
 				
 				//text message received
 				logger.info(contact.getEmail().toString()+" says : "+message.getContent());
-				System.out.println(contact.getEmail().toString()+" says : "+message.getContent());
-			
-//				try {
-//					ChatMessageUtils.manageReceivedMessage(switchboard,message,contact);
-//				} catch (IOException e) {
-//					logger.error("Eccezione : ",e);
-//				} 
+				try {
+					ChatMessageUtils.manageReceivedMessage(switchboard,message,contact);
+				} catch (IOException e) {
+					logger.error("Eccezione : ",e);
+				} 
 				
 			}
 
@@ -246,7 +243,7 @@ public class JavaBotMessenger{
 		try{
 			String pm="";
 			try {
-				pm = PropertiesPlugin.getValue(XmlConstant.PROP_QUIT_PERSONAL_MESSAGE);
+				pm = PropertiesPlugin.getValue(PropertiesConstant.PROP_QUIT_PERSONAL_MESSAGE);
 				setPersonalMessage(pm);
 			} catch (PluginException e) {
 				pm ="";
@@ -305,7 +302,7 @@ public class JavaBotMessenger{
 	public String getDefaultNickName(){
 		String nickName ="";
 		try {
-			nickName = PropertiesPlugin.getValue(XmlConstant.PROP_BOTNAME);
+			nickName = PropertiesPlugin.getValue(PropertiesConstant.PROP_BOTNAME);
 		} catch (PluginException e) {
 			nickName ="";
 			logger.error("Eccezione : ",e);
@@ -316,7 +313,7 @@ public class JavaBotMessenger{
 	public String getDefaultPersonalMessage(){
 		String pm ="";
 		try {
-			pm = PropertiesPlugin.getValue(XmlConstant.PROP_PERSONAL_MESSAGE);
+			pm = PropertiesPlugin.getValue(PropertiesConstant.PROP_PERSONAL_MESSAGE);
 		} catch (PluginException e) {
 			pm ="";
 			logger.error("Eccezione : ",e);

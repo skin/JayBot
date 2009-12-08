@@ -5,7 +5,7 @@ import java.util.List;
 
 import it.nands.jaybot.bean.User;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
-import it.nands.jaybot.plugin.properties.constant.XmlConstant;
+import it.nands.jaybot.plugin.properties.constant.PropertiesConstant;
 import it.nands.jaybot.plugin.properties.controller.PropertiesPlugin;
 
 import net.sf.jml.MsnContact;
@@ -30,7 +30,7 @@ public class UserUtils {
 		
 		List<User> retUserList = new ArrayList<User>();
 		
-		String administratorStringList =  PropertiesPlugin.getValue(XmlConstant.PROP_ADMINISTRATOR_LIST);
+		String administratorStringList =  PropertiesPlugin.getValue(PropertiesConstant.PROP_ADMINISTRATOR_LIST);
 		if (!StringUtils.isEmpty(administratorStringList)){
 			String[] splittedAdminString = administratorStringList.split(";");
 			if (splittedAdminString !=null && splittedAdminString.length>0){
