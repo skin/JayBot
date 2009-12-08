@@ -1,4 +1,38 @@
 <?xml version="1.0" ?>
 <tokens delimitator="%">
-
+	<token>
+		<key>environment</key>
+		<values>test,cert,prod</values>
+		<type>enumeration</type>
+	</token>
+	<token>
+		<key>resourceType</key>
+		<values>ftp,ssh</values>
+		<type>enumeration</type>
+	</token>
+	<token>
+		<key>earName</key>
+		<values>ear</values>
+		<type>fileExtension</type>
+	</token>
+	<token>
+		<key>logFilename</key>
+		<values>log</values>
+		<type>fileExtension</type>
+	</token>
+	<token>
+		<key>NickOwnerStatus</key>
+		<values></values>
+		<type>string</type>
+	</token>
+	<token>
+		<key>NickName</key>
+		<values></values>
+		<type>string</type>
+	</token>
+	<token>
+		<key>serverName</key>
+		<values>ftp</values>
+		<type>ServerType</type>
+	</token>
 </tokens>

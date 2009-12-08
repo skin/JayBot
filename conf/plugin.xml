@@ -34,17 +34,48 @@ SPECIFICATIONS
 							message received
 					   
 -->
+
 <plugins>
+	<plugin name="pluginController">
+		<class>it.nands.jaybot.plugin.configurator.controller.PluginController</class>
+	</plugin>
+	
 	<plugin name="propertiesPlugin" 
 			blocking="true">
 		<class>it.nands.jaybot.plugin.properties.controller.PropertiesLoader</class>
 	</plugin>
 	
-	<plugin name="quitPlugin" dependencies="paramController,propertiesController">
+	<plugin name="quitPlugin" dependencies="propertiesPlugin,pluginController">
 		<class>it.nands.jaybot.plugin.quit.QuitPlugin</class>
+		<command 	name="quit" 
+					onlyForAdmin="true" 
+					description="Richiede al bot la sua uscita">
+					
+			<template>quit</template>
+			<description>Disconnette il bot</description>
+		</command>	
+	</plugin>
+	
+	<plugin name="helpPlugin" dependencies="propertiesPlugin,pluginController">
+		<class>it.nands.jaybot.plugin.help.HelpPlugin</class>
+		<command 	name="help" 
+					description="Richiede al bot un elenco di tutti i comandi disponibili">
+					
+			<template>help</template>
+			<description>Elenco dei comandi</description>
+		</command>
+		<!-- da spostare -->
+		<command 	name="log" 
+					description="Richiede al bot l'invio di un file di log">
+					
+			<template>log %logFilename %environment</template>
+			<description>Chiede l'invio di un file di log</description>
+		</command>
 	</plugin>
 	
 	
+	
+	<!-- paramController, -->
 	<!-- plugin name="paramController" dependencies="tokenizerPlugin">
 		<class>it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerLoader</class>
 		<class>it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin</class>
@@ -68,8 +99,6 @@ SPECIFICATIONS
 	<plugin name="answerPlugin" dependencies="paramController,propertiesController">
 		<class>it.nands.jaybot.plugin.answer.AnswerPlugin</class>
 	</plugin>
-	<plugin name="helpPlugin" dependencies="paramController,propertiesController">
-		<class>it.nands.jaybot.plugin.help.HelpPlugin</class>
-	</plugin-->
+	-->
 	
 </plugins>

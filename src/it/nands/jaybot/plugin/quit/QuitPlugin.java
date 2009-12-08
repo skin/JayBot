@@ -6,9 +6,9 @@ import it.nands.jaybot.constant.CommandConstant;
 import it.nands.jaybot.constant.MessagesConstant;
 import it.nands.jaybot.exception.JavaBotInitializingExeption;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
+import it.nands.jaybot.plugin.configurator.util.PluginUtils;
 import it.nands.jaybot.plugin.impl.MessageHandlerPluginInterface;
 import it.nands.jaybot.plugin.message.controller.MessagePlugin;
-import it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin;
 import it.nands.jaybot.util.MessageUtils;
 import it.nands.jaybot.util.UserUtils;
 import net.sf.jml.MsnContact;
@@ -36,7 +36,7 @@ public class QuitPlugin implements MessageHandlerPluginInterface {
 		User utente = UserUtils.getUser(contact);
 		
 		try {
-			if (ParamControllerPlugin.checkComandoMessaggio(messaggio,CommandConstant.QUIT,utente)){
+			if (PluginUtils.checkComandoMessaggio(messaggio,CommandConstant.QUIT,utente)){
 				valid = true;
 				if (JavaBotMessenger.getInstance().isIdle()){
 					logger.info("Bot IDLE : Shutting down");

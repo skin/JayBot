@@ -11,7 +11,7 @@ import it.nands.jaybot.constant.TokenConstant;
 import it.nands.jaybot.exception.ControlParamExeption;
 import it.nands.jaybot.exception.ParamException;
 import it.nands.jaybot.plugin.configurator.exception.PluginInitializeException;
-import it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin;
+import it.nands.jaybot.plugin.configurator.util.PluginUtils;
 import it.nands.jaybot.plugin.server.bean.Server;
 import it.nands.jaybot.plugin.server.controller.ServerPlugin;
 import it.nands.jaybot.plugin.tokenizer.bean.Token;
@@ -139,9 +139,9 @@ public class TokenizerUtils {
 		Map<String,String> retHash = null;
 		
 		// prendo dal template solamente la parte relativa al comando
-		String commandWithoutParams = ParamControllerPlugin.getCommandWithoutParamsFromTemplate(template);
+		String commandWithoutParams = PluginUtils.getCommandWithoutParamsFromTemplate(template);
 		// prendo dal template solamente la parte relativa ai parametri
-		String commandParameters = ParamControllerPlugin.getParametersFromTemplate(template);
+		String commandParameters = PluginUtils.getParametersFromTemplate(template);
 		
 		String messaggioWithoutFirsPart="";
 		if (!StringUtils.isEmpty(commandWithoutParams)){
@@ -182,7 +182,7 @@ public class TokenizerUtils {
 	 * @return
 	 */
 	public static String getPrintableTemplate(String template,String delimitatore){
-		String soloParam = ParamControllerPlugin.getParametersFromTemplate(template);
+		String soloParam = PluginUtils.getParametersFromTemplate(template);
 		String templateToPrint = StringUtils.removeChar(soloParam,delimitatore.charAt(0));
 		String concatParamParsed = StringUtils.concatenateStringsWithCaracter(templateToPrint.split(" "),"[","]");
 		return concatParamParsed;

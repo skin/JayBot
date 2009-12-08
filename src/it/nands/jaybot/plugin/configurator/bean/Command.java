@@ -1,4 +1,4 @@
-package it.nands.jaybot.plugin.paramcontroller.bean;
+package it.nands.jaybot.plugin.configurator.bean;
 
 import java.util.List;
 

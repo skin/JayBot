@@ -1,14 +1,12 @@
 package it.nands.jaybot.plugin.answer;
 
 import it.nands.jaybot.bean.User;
-import it.nands.jaybot.bot.JavaBotMessenger;
 import it.nands.jaybot.constant.CommandConstant;
 import it.nands.jaybot.constant.MessagesConstant;
-import it.nands.jaybot.exception.JavaBotInitializingExeption;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
+import it.nands.jaybot.plugin.configurator.util.PluginUtils;
 import it.nands.jaybot.plugin.impl.MessageHandlerPluginInterface;
 import it.nands.jaybot.plugin.message.controller.MessagePlugin;
-import it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin;
 import it.nands.jaybot.util.MessageUtils;
 import it.nands.jaybot.util.UserUtils;
 import net.sf.jml.MsnContact;
@@ -42,7 +40,7 @@ public class AnswerPlugin implements MessageHandlerPluginInterface {
 		
 		try {
 			// CIAO
-			if (ParamControllerPlugin.checkComandoMessaggio(messaggio,CommandConstant.CIAO,utente)){
+			if (PluginUtils.checkComandoMessaggio(messaggio,CommandConstant.CIAO,utente)){
 				valid = true;
 				
 				String parsedMessage = MessagePlugin.getMessage

@@ -13,6 +13,7 @@ public class Plugin {
 	private String dependencies;
 	private Boolean blocking = new Boolean(false);
 	private List<String> classList;
+	private List<Command> commandList;
 	
 	
 
@@ -77,6 +78,23 @@ public class Plugin {
 
 	public void setBlocking(Boolean blocking) {
 		this.blocking = blocking;
+	}
+	/**
+	 * Recupera il valore di : command list.
+	 * 
+	 * @return command list
+	 */
+	public List<Command> getCommandList() {
+		return commandList;
+	}
+
+	/**
+	 * Setta il valore di : command list.
+	 * 
+	 * @param commandList nuovo valore di : command list
+	 */
+	public void setCommandList(List<Command> commandList) {
+		this.commandList = commandList;
 	}
 
 }

@@ -7,6 +7,7 @@ import it.nands.jaybot.constant.PluginConstant;
 import it.nands.jaybot.plugin.configurator.bean.Plugin;
 import it.nands.jaybot.plugin.configurator.bean.Plugins;
 import it.nands.jaybot.plugin.configurator.controller.PluginLoader;
+import it.nands.jaybot.plugin.configurator.controller.PluginManager;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
 import it.nands.jaybot.plugin.configurator.exception.PluginInitializeException;
 import it.nands.jaybot.plugin.impl.MessageHandlerPluginInterface;
@@ -57,7 +58,7 @@ public class ChatMessageUtils {
 		 try{
 			 
 			 // recupero i plugin interessati al message received
-			 Plugins pluginInteressati =  PluginLoader.getInstance().getOnMessageReceivedPlugins();
+			 Plugins pluginInteressati =  PluginManager.getOnMessageReceivedPlugins();
 			 if (pluginInteressati!=null){
 				 
 				 List<Plugin> pluginList = pluginInteressati.getPluginList();
@@ -103,12 +104,7 @@ public class ChatMessageUtils {
 					 } 
 				 }
 			 }
-		 }catch(PluginInitializeException e){
-			 logger.error("Eccezione :",e);
-			 String errorMessage = e.getMessage();
-			// invio messaggio
-			MessageUtils.sendMessage(errorMessage, switchboard);
-		 }catch (IllegalArgumentException e) {
+		}catch (IllegalArgumentException e) {
 			 logger.error("Eccezione :",e);
 			 String errorMessage = e.getMessage();
 			// invio messaggio

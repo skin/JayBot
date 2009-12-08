@@ -10,10 +10,11 @@ import org.apache.log4j.Logger;
 import it.nands.jaybot.bean.User;
 import it.nands.jaybot.constant.CommandConstant;
 import it.nands.jaybot.constant.MessagesConstant;
+import it.nands.jaybot.plugin.configurator.controller.PluginManager;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
+import it.nands.jaybot.plugin.configurator.util.PluginUtils;
 import it.nands.jaybot.plugin.impl.MessageHandlerPluginInterface;
 import it.nands.jaybot.plugin.message.controller.MessagePlugin;
-import it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin;
 import it.nands.jaybot.plugin.properties.constant.PropertiesConstant;
 import it.nands.jaybot.plugin.properties.controller.PropertiesPlugin;
 import it.nands.jaybot.util.MessageUtils;
@@ -40,7 +41,7 @@ public class HelpPlugin implements MessageHandlerPluginInterface {
 		User utente = UserUtils.getUser(contact);
 		
 		try {
-			if (ParamControllerPlugin.checkComandoMessaggio(messaggio,CommandConstant.HELP,utente)){
+			if (PluginUtils.checkComandoMessaggio(messaggio,CommandConstant.HELP,utente)){
 				String parsedMessage = MessagePlugin.getMessage
 				(
 							MessagesConstant.MESSAGE_HELP, 
@@ -49,7 +50,7 @@ public class HelpPlugin implements MessageHandlerPluginInterface {
 									PropertiesConstant.MODULE_DEFAULT,
 									PropertiesConstant.PROP_BOTNAME
 							),
-							ParamControllerPlugin.getPrintableCommandList()
+							PluginUtils.getPrintableCommandList()
 				);
 				
 				// invio messaggio

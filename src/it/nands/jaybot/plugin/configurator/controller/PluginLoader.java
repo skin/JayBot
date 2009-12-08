@@ -113,7 +113,7 @@ public class PluginLoader extends SingletonPluginLoader{
 	 * Metodo per eecuperare i plugin
 	 * @return	: bean contenitore di plugin
 	 */
-	public Plugins getPlugins() {
+	protected Plugins getPlugins() {
 		if (plugins==null) return new Plugins();
 		return plugins;
 	}
@@ -122,7 +122,7 @@ public class PluginLoader extends SingletonPluginLoader{
 	 * Metodo per recupare i plugin associati all'evento message Handler
 	 * @return
 	 */
-	public Plugins getOnMessageReceivedPlugins() {
+	protected Plugins getOnMessageReceivedPlugins() {
 		return onMessageReceivedPlugins;
 	}
 

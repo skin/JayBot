@@ -15,11 +15,12 @@ import it.nands.jaybot.constant.CommandConstant;
 import it.nands.jaybot.constant.MessagesConstant;
 import it.nands.jaybot.exception.ControlParamExeption;
 import it.nands.jaybot.exception.ParamException;
+import it.nands.jaybot.plugin.configurator.bean.CommandItem;
+import it.nands.jaybot.plugin.configurator.controller.PluginManager;
 import it.nands.jaybot.plugin.configurator.exception.PluginException;
+import it.nands.jaybot.plugin.configurator.util.PluginUtils;
 import it.nands.jaybot.plugin.impl.MessageHandlerPluginInterface;
 import it.nands.jaybot.plugin.message.controller.MessagePlugin;
-import it.nands.jaybot.plugin.paramcontroller.bean.CommandItem;
-import it.nands.jaybot.plugin.paramcontroller.controller.ParamControllerPlugin;
 import it.nands.jaybot.plugin.server.constant.ServerPluginConstant;
 import it.nands.jaybot.plugin.server.controller.ServerPlugin;
 import it.nands.jaybot.plugin.tokenizer.constant.TokenizerPluginConstant;
@@ -49,7 +50,7 @@ public class FtpPlugin implements MessageHandlerPluginInterface{
 		logger.info("INIZIO - messaggio : "+messaggio);
 		
 		try {
-			CommandItem itemComando = ParamControllerPlugin.getCommandItemFromMessage(messaggio);
+			CommandItem itemComando = PluginUtils.getCommandItemFromMessage(messaggio);
 			if (itemComando == null){
 				logger.debug("itemComando nullo");
 				throw new ControlParamExeption("itemComando nullo");
@@ -61,7 +62,7 @@ public class FtpPlugin implements MessageHandlerPluginInterface{
 			// recupero il nome del server
 			String serverName = mapValues.get(TokenizerPluginConstant.TOKEN_SERVER_NAME);
 			logger.debug("serverName : "+serverName);
-			if (ParamControllerPlugin.checkComandoMessaggio(messaggio,CommandConstant.FTP_PUT)){
+			if (PluginManager.checkComandoMessaggio(messaggio,CommandConstant.FTP_PUT)){
 				logger.info("Ftp put : "+messaggio);
 				// notifico che la richiesta è stata accettata
 				String messageToSend = MessagePlugin.getMessage(MessagesConstant.MESSAGE_PUT_REQUEST_ACCEPTED,
@@ -75,7 +76,7 @@ public class FtpPlugin implements MessageHandlerPluginInterface{
 				
 				valid = true;
 			}
-			if (ParamControllerPlugin.checkComandoMessaggio(messaggio,CommandConstant.FTP_PUT_DIR)){
+			if (PluginManager.checkComandoMessaggio(messaggio,CommandConstant.FTP_PUT_DIR)){
 				logger.info("Ftp put dir: "+messaggio);
 				// notifico che la richiesta è stata accettata
 				String path = mapValues.get(TokenizerPluginConstant.TOKEN_SERVER_DIR);
@@ -89,7 +90,7 @@ public class FtpPlugin implements MessageHandlerPluginInterface{
 				
 				valid = true;
 			}
-			if (ParamControllerPlugin.checkComandoMessaggio(messaggio,CommandConstant.FTP_PUT_LN)){
+			if (PluginManager.checkComandoMessaggio(messaggio,CommandConstant.FTP_PUT_LN)){
 				logger.info("Ftp put ln: "+messaggio);
 				// notifico che la richiesta è stata accettata
 				String nameLogicalDir = mapValues.get(TokenizerPluginConstant.TOKEN_LN_DIR); 
